@@ -1,10 +1,24 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include "test.h"
+
 
 int main(void) 
 {
-	printf("Hello world\n");
-	for (int i =0 ; i < 100 ; i++){
-		printf("%d\n", i);
-	}
-	return (1);
+	int a = 0;
+	print(a);
+	/*//int fd;
+	char buff[100];
+	system("gcc -g -Wall test2.c");
+	//fd = open(2,O_RDONLY);
+
+	while (1) {
+		read(2,buff,99);
+		printf("%s\n",buff);
+	}*/
+	return (0);
 }

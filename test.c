@@ -11,6 +11,7 @@ int main(void)
 {
 	int a = 0;
 	print(a);
+	printf("salut\n");
 	/*//int fd;
 	char buff[100];
 	system("gcc -g -Wall test2.c");

@@ -9,6 +9,7 @@
 #include <fcntl.h>
 #include <sys/wait.h>
 #include <string.h>
+#include <assert.h>
 
 typedef struct fd_files {
 	FILE *fd;
@@ -31,7 +32,8 @@ typedef struct error_t{
 FILE *compile(int ac, char **av);
 fd_f *openfiles(int ac, char **av);
 void freeFiles(fd_f *f, int ac);
-errt parseur(cor);
+errt *parseur(cor);
 void comment(errt a);
+void *my_malloc(size_t size);
 
 #endif

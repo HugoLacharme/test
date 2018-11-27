@@ -2,10 +2,10 @@
 
 fd_f *openfiles(int ac, char **av)
 {
-	fd_f *files = malloc(sizeof(fd_f*) * (ac-1));
+	fd_f *files = my_malloc(sizeof(*files) * ac);
 	for (int i = 0; i < ac-1; i++) {
-		files[i].fd = fopen(av[i+1],"r+");
 		files[i].name = strdup(av[i+1]);
+		files[i].fd = fopen(files[i].name,"r+");
 	}
 	return (files);
 }

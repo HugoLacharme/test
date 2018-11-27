@@ -8,7 +8,6 @@ void get_next_line(cor a)
 	size_t len = 0;
 	ssize_t read;
 
-	//fp = fopen("correc.txt", "r");
 	if (a.fd_cor == NULL)
 		exit(EXIT_FAILURE);
 
@@ -22,9 +21,9 @@ void get_next_line(cor a)
 	exit(EXIT_SUCCESS);
 }
 
-errt parseur(cor a)
+errt *parseur(cor a)
 {
-	errt errtab;
+	errt *errtab;
 	
 	get_next_line(a);
 	return (errtab);

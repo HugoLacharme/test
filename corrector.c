@@ -9,5 +9,7 @@ int main(int ac, char **av)
 	}
 	files.fd_cor = compile(ac,av);
 	files.files = openfiles(ac,av);
+
+	parseur(files);
 	return (0);
 }

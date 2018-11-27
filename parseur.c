@@ -1,30 +1,24 @@
 #include "corrector.h"
 
-void get_next_line(cor a)
+char **get_lines(cor a)
 {
-	
 	char *line = NULL;
-	//char **lines = malloc(sizeof(char **) *10);
+	//char **lines = malloc(sizeof(char *) *10);
 	size_t len = 0;
 	ssize_t read;
 
-	if (a.fd_cor == NULL)
-		exit(EXIT_FAILURE);
-
+	a.fd_cor = freopen("correction.txt", "r", a.fd_cor);
+	assert(a.fd_cor != NULL);
 	while ((read = getline(&line, &len, a.fd_cor)) != -1) {
 		printf("%s", line);
-
 	}
-	if (line)
-		free(line);
-
-	exit(EXIT_SUCCESS);
 }
 
 errt *parseur(cor a)
 {
 	errt *errtab;
-	
+	char **text;
+
 	get_next_line(a);
 	return (errtab);
 }

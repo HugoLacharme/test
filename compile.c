@@ -2,14 +2,16 @@
 
 FILE *compile(int ac, char **av)
 {
-	FILE *fd = fopen("correc.txt","w+");
+	int tmp;
+	FILE *fd = fopen("correction.txt","w+");
+	assert(fd != NULL);
 	dup2(fileno(fd),fileno(stderr));
 
-	int tmp = fork();
+	tmp = fork();
 	if (tmp < 0)
 		return (0);
 	if (tmp != 0) {
-		while(wait(0)!=tmp);
+		wait(0);
 	} else {
 		av[0] = "gcc";
 		execvp(av[0],av);

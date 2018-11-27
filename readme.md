@@ -24,3 +24,15 @@
 	- l'erreur/warning
 	- note
 
+- Parseur :
+1 : nom fichier
+2 : ligne
+3 : position ligne
+4 : error/warning/note
+
+si c'est une erreur : il te montre ou est l'erreur -> suivi d'un note
+si c'est un warning : 
+
+on creer des fonctions de gestion d'erreur
+un tableau de fonction qui les contients
+le parseur va definir la valeur de fct_err par rapport a la position de la fonction souhaiter dans le tableau pour pouvoir appeler la bonne fonction.

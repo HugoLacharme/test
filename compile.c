@@ -1,9 +1,9 @@
 #include "corrector.h"
 
-int compile(int ac, char **av)
+FILE *compile(int ac, char **av)
 {
-	int fd = open("correc.txt",O_RDWR | O_CREAT);
-	dup2(fd,2);
+	FILE *fd = fopen("correc.txt","w+");
+	dup2(fileno(fd),fileno(stderr));
 
 	int tmp = fork();
 	if (tmp < 0)

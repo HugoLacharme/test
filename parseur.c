@@ -2,14 +2,14 @@
 
 void get_next_line(cor a)
 {
-	FILE * fp;
-	char * line = NULL;
+	
+	char *line = NULL;
 	//char **lines = malloc(sizeof(char **) *10);
 	size_t len = 0;
 	ssize_t read;
 
 	//fp = fopen("correc.txt", "r");
-	if (fp == NULL)
+	if (a.fd_cor == NULL)
 		exit(EXIT_FAILURE);
 
 	while ((read = getline(&line, &len, a.fd_cor)) != -1) {
@@ -22,9 +22,9 @@ void get_next_line(cor a)
 	exit(EXIT_SUCCESS);
 }
 
-errt *parseur(cor a)
+errt parseur(cor a)
 {
-	errt* errtab;
+	errt errtab;
 	
 	get_next_line(a);
 	return (errtab);

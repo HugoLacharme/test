@@ -11,12 +11,12 @@
 #include <string.h>
 
 typedef struct fd_files {
-	int fd;
+	FILE *fd;
 	char *name;
 } fd_f;
 
 typedef struct corec_t {
-	int fd_cor;
+	FILE *fd_cor;
 	fd_f *files;
 
 } cor;
@@ -28,10 +28,10 @@ typedef struct error_t{
 	int fct_err;
 }errt;
 
-int compile(int ac, char **av);
+FILE *compile(int ac, char **av);
 fd_f *openfiles(int ac, char **av);
 void freeFiles(fd_f *f, int ac);
-errt *parseur(cor);
+errt parseur(cor);
 void comment(errt a);
 
 #endif

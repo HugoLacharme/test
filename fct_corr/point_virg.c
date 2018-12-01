@@ -1,4 +1,5 @@
 #include "corrector.h"
+
 void point_virg(errt a){
 	char* buf = ";";
 	

@@ -17,3 +17,14 @@ void free_lines(char **lines)
 		free(*lines++);
 	free(temp);
 }
+
+void free_struct(errt *err)
+{
+	errt *temp = err;
+
+	while (temp != NULL) {
+		err = err->next;
+		free(temp);
+		temp = err;
+	}
+}

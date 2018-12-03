@@ -1,7 +1,5 @@
 #include "corrector.h"
 
-void affiche_struct(errt *err);
-
 char **get_lines(cor a)
 {
 	char *gline = NULL;
@@ -29,30 +27,6 @@ char **get_lines(cor a)
 	return (lines);
 }
 
-int sil(char *line)
-{
-	int i = 0;
-
-	while (line[i] != ' ')
-		i++;
-	return (i);
-}
-
-int check_line(char *line, char *file)
-{
-	char *temp;
-	if (strlen (line) < strlen(file))
-		return (0);
-	temp = cut(line,strlen(file));
-	if (strcmp(temp,file) == 0)
-		if (sil(line + strlen(file)) > 2) {
-			free(temp);
-			return (1);
-		}
-	free(temp);
-	return (0);
-}
-
 errt *add_to_struct(errt *err, errt *new)
 {
 	errt *temp = err;
@@ -68,15 +42,6 @@ errt *add_to_struct(errt *err, errt *new)
 
 }
 
-int get_number(char *temp)
-{
-	int i;
-	if((i = atoi(strtok(temp,":"))) == 0) {
-		perror("j'ai glissé chef !\n");
-		exit(1);
-	}
-	return (i);
-}
 errt *creat_struct_error(char **lines, int start, int end, fd_f file, char *error)
 {
 	errt *new = my_malloc(sizeof(*new));
@@ -114,22 +79,6 @@ errt *split_error(char **lines, int start, int end, fd_f file)
 	return (err);
 }
 
-int file_comp(fd_f file, fd_f *other, char *line, int nb_files)
-{
-	char *temp;
-	for (int i = 0; i < nb_files; i++) {
-		if ((temp = cut(line,strlen(other[i].name))) != NULL) {
-			if ((strcmp(other[i].name, temp) == 0) 
-			&& (other[i].name != file.name)) {
-				free(temp);
-				return (1);
-			}
-			free(temp);
-		}
-	}
-	return (0);
-}
-
 errt *get_error(char **lines, cor a)
 {
 	int i = 0, start = 0, end = 0;
@@ -146,14 +95,6 @@ errt *get_error(char **lines, cor a)
 	err = add_to_struct(err, split_error(lines, start, end, a.files[i]));
 
 	return (err);
-}
-
-void affiche_struct(errt *err)
-{
-	while (err != NULL) {
-		printf("file : %s, :%d:%d\n",err->file.name,err->ligne, err->cur);
-		err = err->next;
-	}
 }
 
 errt *parseur(cor a)

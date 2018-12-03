@@ -38,5 +38,11 @@ void comment(errt a);
 void free_lines(char **lines);
 void *my_malloc(size_t size);
 char *cut(char *str, int size);
+int sil(char *line);
+int check_line(char *line, char *file);
+int get_number(char *temp);
+int file_comp(fd_f file, fd_f *other, char *line, int nb_files);
+void affiche_struct(errt *err);
+void free_struct(errt *err);
 
 #endif

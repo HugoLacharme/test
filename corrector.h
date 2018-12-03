@@ -27,6 +27,7 @@ typedef struct error_t{
 	int ligne;
 	int cur;
 	int fct_err;
+	struct error_t *next;
 }errt;
 
 FILE *compile(int ac, char **av);

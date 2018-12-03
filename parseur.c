@@ -1,5 +1,7 @@
 #include "corrector.h"
 
+void affiche_struct(errt *err);
+
 char **get_lines(cor a)
 {
 	char *gline = NULL;
@@ -51,23 +53,18 @@ int check_line(char *line, char *file)
 	return (0);
 }
 
-void add_to_struct(errt *err, errt *new)
+errt *add_to_struct(errt *err, errt *new)
 {
-	printf("salut\n");
 	errt *temp = err;
 	if (err == NULL) {
-		printf("salut1\n");
-		err = new;
+		err = new;	
 	} else {
-		printf("salut2\n");
 		while (temp->next != NULL) {
 			temp = temp->next;
-			printf("oui?\n");
 		}
-		printf("salut4\n");
 		temp->next = new;
 	}
-	printf("salut5\n");
+	return (err);
 
 }
 
@@ -82,7 +79,7 @@ int get_number(char *temp)
 }
 errt *creat_struct_error(char **lines, int start, int end, fd_f file, char *error)
 {
-	errt *new = malloc(sizeof(*new));
+	errt *new = my_malloc(sizeof(*new));
 	char *temp = strdup(error);
 
 	new->file = file;
@@ -107,9 +104,8 @@ errt *split_error(char **lines, int start, int end, fd_f file)
 			if ((strcmp(temp,error) != 0)) {
 				free(error);
 				error = strdup(temp);
-				printf("ieaeazi?\n");
-				add_to_struct(err, creat_struct_error(lines, start_e, end_e, file, error));
-				start_e = end_e + 1;
+				err = add_to_struct(err,creat_struct_error(lines, start_e, end_e, file, error));
+				start_e = end_e;
 			}
 			free(temp);
 		}
@@ -142,21 +138,21 @@ errt *get_error(char **lines, cor a)
 
 	for (; (lines[end] != NULL) && (i <= a.nb_files); end++) { // pour chaque ligne dans correc.txt
 		if (file_comp(a.files[i], a.files,lines[end], a.nb_files)) { // si a la ligne line[end] il n'y a plus a.file[i]
-			//printf("pas la\n");
-			add_to_struct(err, split_error(lines, start,end, a.files[i]));
-			start = end + 1;
+			err = add_to_struct(err, split_error(lines, start,end, a.files[i]));
+			start = end;
 			i++;
 		}
 	}
-	add_to_struct(err, split_error(lines, start,end, a.files[i]));
+	err = add_to_struct(err, split_error(lines, start, end, a.files[i]));
 
 	return (err);
 }
 
 void affiche_struct(errt *err)
 {
-	while (err->next != NULL) {
+	while (err != NULL) {
 		printf("file : %s, :%d:%d\n",err->file.name,err->ligne, err->cur);
+		err = err->next;
 	}
 }
 
@@ -168,6 +164,6 @@ errt *parseur(cor a)
 	text = get_lines(a);
 	errtab = get_error(text,a);
 	free_lines(text);
-	//affiche_struct(errtab);
+	affiche_struct(errtab);
 	return (errtab);
 }

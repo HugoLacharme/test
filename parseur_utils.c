@@ -27,7 +27,7 @@ int check_line(char *line, char *file)
 int get_number(char *temp)
 {
 	int i;
-	if((i = atoi(strtok(temp,":"))) == 0) {
+	if ((i = atoi(strtok(temp,":"))) == 0) {
 		perror("j'ai glissé chef !\n");
 		exit(1);
 	}

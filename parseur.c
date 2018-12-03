@@ -11,7 +11,10 @@ char **get_lines(cor a)
 	ssize_t read;
 
 	a.fd_cor = freopen("correction.txt", "r", a.fd_cor);
-	assert(a.fd_cor != NULL);
+	if (a.fd_cor == NULL) {
+		perror("can't open my file ? wut??");
+		exit(EXIT_FAILURE);
+	}
 	for (i = 0;(read = getline(&gline, &len, a.fd_cor)) != -1; i++, re_alloc++) {
 		lines[i] = strdup(gline);
 		if (re_alloc >= 9) {

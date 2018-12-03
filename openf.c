@@ -7,7 +7,7 @@ fd_f *openfiles(int ac, char **av)
 		files[i].name = strdup(av[i+1]);
 		if ((files[i].fd = fopen(files[i].name,"r+")) == NULL) {
 			perror(files[i].name);
-			exit(1);
+			exit(EXIT_FAILURE);
 		}
 
 	}

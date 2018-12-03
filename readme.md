@@ -1,28 +1,16 @@
 # Besoin de faire :
 
-- le main prend en parametre les fichiers du programme 
-	- int main(char ac, char **av)
-- fonction qui utilise le compilateur(system() ou exec() et fork())
-    - void compiletamere(char**av);
-- fonction qui recupere la sortie d'erreur (read(2,buffer,taille buffer))
-	- char * compileStderr()
-- fonction qui ouvre le/les fichiers du programme (open())
-	- int *openProg(char **av)
-- fonction qui decoupe les information du compilateur pour les utilisé
-    - int **parseError(char *buff)
-- fonction qui place un offset a l'endroi de l'erreur/les erreurs (fonction lseek())
-	- off_t placeOffset(int **a) //on vera plus tard
-- fonction qui va placer un commentaire à l'endroit de l'erreur. (write())
-    - void commenterror(off_t x,int *fd)
-- Type d'erreur pris en compte :
-    - error
-    - note
-    - 
+si tu regardes sa et que je suis pas la, la structure errt est remplie donc tu peux t'amuser a faire une focntion de correction et tester, je ferais le tableau de fonctions plus tard.
 
-- commencer à analyser la sortie du compilateur 
-	- la fonction dans laquelle il y a l'erreur
-	- l'erreur/warning
-	- note
+y'a aussi le makefile a faire.
+
+ah oui errt c'est devenu une liste chainé mais pour l'instant tu ten ballec vu que y'a pas de tableau de fonctions.
+
+le find_err n'est pas fait mais tu n'en as pas besoin, fait en sorte que l'erreur que tu veux tester soit la premiere (ou la seul) et du coup tu n'auras pas besoin de naviguer dans la liste chainer pour trouver la bonne structure (ce cera la premiere).
+
+dans le main rajoute directement t'as fonction avec errors en parametre. Si tu as mis ton erreurs et premier alors la premiere struct de errors contiendra les info sur ton erreur.
+
+
 
 - Parseur :
 1 : nom fichier

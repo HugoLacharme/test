@@ -3,7 +3,10 @@
 void *my_malloc(size_t size)
 {
 	void *new = malloc(sizeof(*new) * size);
-	assert(new);
+	if (new == NULL) {
+		perror("malloc fail !");
+		exit(EXIT_FAILURE);
+	}
 	return (new);
 }
 

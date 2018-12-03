@@ -17,5 +17,6 @@ int main(int ac, char **av)
 	freeFiles(files.files, ac);
 	free_struct(errors);
 	fclose(files.fd_cor);
+	
 	return (0);
 }

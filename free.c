@@ -2,7 +2,7 @@
 
 void freeFiles(fd_f *f, int ac)
 {
-	for(int i  = 0 ; i<ac-1 ; i++){
+	for (int i  = 0; i < ac-1; i++) {
 		free(f[i].name);
 		fclose(f[i].fd);
 	}
@@ -13,7 +13,7 @@ void free_lines(char **lines)
 {
 	char **temp = lines;
 
-	while(*lines != NULL)
+	while (*lines != NULL)
 		free(*lines++);
 	free(temp);
 }

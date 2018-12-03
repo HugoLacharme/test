@@ -10,6 +10,7 @@ int main(int ac, char **av)
 	}
 	files.fd_cor = compile(ac,av);
 	files.files = openfiles(ac,av);
+	files.nb_files = ac-1;
 
 	errors = parseur(files);
 

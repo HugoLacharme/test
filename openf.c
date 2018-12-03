@@ -9,12 +9,3 @@ fd_f *openfiles(int ac, char **av)
 	}
 	return (files);
 }
-
-void freeFiles(fd_f *f, int ac)
-{
-	for(int i  = 0 ; i<ac-1 ; i++){
-		free(f[i].name);
-		fclose(f[i].fd);
-	}
-	free(f);
-}

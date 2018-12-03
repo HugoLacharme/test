@@ -19,7 +19,7 @@ typedef struct fd_files {
 typedef struct corec_t {
 	FILE *fd_cor;
 	fd_f *files;
-
+	int nb_files;
 } cor;
 
 typedef struct error_t{
@@ -34,6 +34,8 @@ fd_f *openfiles(int ac, char **av);
 void freeFiles(fd_f *f, int ac);
 errt *parseur(cor);
 void comment(errt a);
+void free_lines(char **lines);
 void *my_malloc(size_t size);
+char *cut(char *str, int size);
 
 #endif

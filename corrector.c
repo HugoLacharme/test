@@ -9,6 +9,7 @@ void corrector(errt *err)
 		(*fc[err->fct_err])(err);
 		err = err ->next;
 	}
+	free(fc);
 }
 
 int main(int ac, char **av)

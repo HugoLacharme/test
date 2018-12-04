@@ -4,7 +4,7 @@ int semicolon(errt *a)
 {
 	char* buf = ";";
 	printf("c'est ici\n");
-	lseek(fileno(a->file.fd),a->ligne a->cur, SEEK_SET);
+	lseek(fileno(a->file.fd),a->ligne, SEEK_SET);
 	if (fwrite(buf,1,sizeof(buf),a->file.fd) < 0) {
 		perror("fwrite");
 	}

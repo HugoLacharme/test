@@ -9,7 +9,6 @@
 #include <fcntl.h>
 #include <sys/wait.h>
 #include <string.h>
-#include <assert.h>
 
 #define NB_FNCTCOR 2
 

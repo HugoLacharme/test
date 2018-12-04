@@ -21,4 +21,5 @@ int find_errors(errt *err)
 		}
 		err = err ->next;
 	}
+	free(fc);
 }

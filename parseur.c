@@ -30,63 +30,6 @@ char **get_lines(cor a)
 	return (lines);
 }
 
-errt *add_to_struct(errt *base, errt *new)
-{
-	errt *temp = base;
-	if (base == NULL) {
-		base = new;	
-	} else {
-		while (temp->next != NULL) {
-			temp = temp->next;
-		}
-		temp->next = new;
-	}
-	return (base);
-
-}
-
-errt *creat_struct_error(fd_f file, char *error, char *function)
-{
-	errt *new = my_malloc(sizeof(*new));
-	char *temp = strdup(error);
-
-	new->file = file;
-	new->ligne = get_number(temp);
-	new->cur = get_number(NULL);
-	if (function != NULL)
-		new->function = strdup(function);
-	else
-		new->function = NULL;
-	free(temp);
-	//new.fct_err = find_error(lines,start,end,new);
-	new->next = NULL;
-	return (new);
-}
-
-char **get_stderr(char **lines, int start, int end)
-{
-	int y;
-	char **std_err;
-	if ((end - start) <= 1)
-		return (NULL);
-	std_err = my_malloc(sizeof(*std_err) * (1 + end - start));
-	for (y = 0; start < end; y++, start++) {
-		std_err[y] = strdup(lines[start]);
-	}
-	std_err[y] = NULL;
-	return (std_err);
-}
-
-void add_std_err(errt* err, char **std_err)
-{
-	if (err == NULL)
-		return;
-	while (err->next != NULL)
-		err = err->next;
-	if (err != NULL)
-		err->std_err = std_err;
-}
-
 errt *split_error(char **lines, int start, int end, fd_f file)
 {
 	int start_e = start, end_e = start;
@@ -140,7 +83,8 @@ errt *parseur(cor a)
 
 	text = get_lines(a);
 	errtab = get_error(text,a);
+	find_errors(errtab);
 	free_lines(text);
-	affiche_struct(errtab);
+	//affiche_struct(errtab);
 	return (errtab);
 }

@@ -14,5 +14,5 @@ int find_acol_close(errt *err)
 {
 	if (strstr(err->std_err[0], "error: expected ‘{’") != NULL)
 		return (1);
-	return (0);
+	return (0); 
 }

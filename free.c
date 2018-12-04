@@ -1,12 +1,13 @@
 #include "corrector.h"
 
-void freeFiles(fd_f *f, int ac)
+void freeFiles(cor f, int ac)
 {
 	for (int i  = 0; i < ac-1; i++) {
-		free(f[i].name);
-		fclose(f[i].fd);
+		free(f.files[i].name);
+		fclose(f.files[i].fd);
 	}
-	free(f);
+	fclose(f.fd_cor);
+	free(f.files);
 }
 
 void free_lines(char **lines)
@@ -24,6 +25,10 @@ void free_struct(errt *err)
 
 	while (temp != NULL) {
 		err = err->next;
+		for (int i = 0; temp->std_err[i] != NULL; i++)
+			free(temp->std_err[i]);
+		free(temp->std_err);
+		free(temp->function);
 		free(temp);
 		temp = err;
 	}

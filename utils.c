@@ -26,7 +26,9 @@ char *cut(char *str, int size)
 void affiche_struct(errt *err)
 {
 	while (err != NULL) {
-		printf("file : %s, :%d:%d\n",err->file.name,err->ligne, err->cur);
+		printf("file : %s, In function : %s :%d:%d \n",err->file.name, err->function, err->ligne, err->cur);
+		//for (int i = 0; err->std_err[i] != NULL; i++)
+			//printf("%s",err->std_err[i]);
 		err = err->next;
 	}
 }

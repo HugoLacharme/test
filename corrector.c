@@ -14,9 +14,8 @@ int main(int ac, char **av)
 
 	errors = parseur(files);
 
-	freeFiles(files.files, ac);
+	freeFiles(files, ac);
 	free_struct(errors);
-	fclose(files.fd_cor);
 	
 	return (0);
 }

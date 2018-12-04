@@ -17,16 +17,16 @@ SRC	=	$(ROOT_DIR)/comment.c\
 
 CC	=	gcc
 
-#NAME	=	correcteur
+NAME	=	correcteur
 
 OBJ	=	$(SRC:.c=.o)
 
-CFLAGS	+=	-std=c99 -fpic -wall -Wextra
+CFLAGS	+=	-std=c99 -fpic -Wall -Wextra -D_XOPEN_SOURCE=700
 
 all:	$(NAME)
 
 $(NAME):	$(OBJ)
-	$(CC) $(OBJ) #-o $(NAME) $(CFLAGS)
+	$(CC) $(OBJ) -o $(NAME) $(CFLAGS)
 
 #Clean and Cleanall
 .PHONY: clean cleanall

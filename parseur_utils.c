@@ -40,16 +40,6 @@ int check_line(char *line, char *file, char **function)
 	return (0);
 }
 
-int get_number(char *temp)
-{
-	int i;
-	if ((i = atoi(strtok(temp,":"))) == 0) {
-		perror("j'ai glissé chef !\n");
-		exit(EXIT_FAILURE);
-	}
-	return (i);
-}
-
 int file_comp(fd_f file, fd_f *other, char *line, int nb_files)
 {
 	char *temp;
@@ -64,4 +54,28 @@ int file_comp(fd_f file, fd_f *other, char *line, int nb_files)
 		}
 	}
 	return (0);
+}
+
+char **get_stderr(char **lines, int start, int end)
+{
+	int y;
+	char **std_err;
+	if ((end - start) <= 1)
+		return (NULL);
+	std_err = my_malloc(sizeof(*std_err) * (1 + end - start));
+	for (y = 0; start < end; y++, start++) {
+		std_err[y] = strdup(lines[start]);
+	}
+	std_err[y] = NULL;
+	return (std_err);
+}
+
+void add_std_err(errt* err, char **std_err)
+{
+	if (err == NULL)
+		return;
+	while (err->next != NULL)
+		err = err->next;
+	if (err != NULL)
+		err->std_err = std_err;
 }

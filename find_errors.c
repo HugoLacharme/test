@@ -1,17 +1,24 @@
 #include "corrector.h"
 
-int cant_correct(char **lines, int start, int end, errt err)
+int cant_correct(errt *err)
 {
+	printf("can't correct error %s:%d:%d in function %s\n",err->file.name, err->ligne
+	,err->cur, err->function);
+
 	return (0);
 }
 
-int find_errors(char **lines, int start, int end, errt err)
+int find_errors(errt *err)
 {
 	int res;
-	int (**tab)(char **lines, int start, int end, errt err);
-
-	tab = get_tab_finder();
-	for (int i = 0; i < NB_FNCTCOR; i++) {
-		if ((res = ))
+	int (**fc)(errt *err);
+	fc = get_tab_finder();
+	while (err != NULL) {
+		err->fct_err = 0;
+		for (int i = 0; i < NB_FNCTCOR - 1; i++) {
+			if ((res = (*fc[i])(err)) > 0)
+				err->fct_err = res;
+		}
+		err = err ->next;
 	}
 }

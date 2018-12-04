@@ -36,25 +36,35 @@ typedef struct error_t{
 
 FILE *compile(int ac, char **av);
 fd_f *openfiles(int ac, char **av);
-void freeFiles(cor f, int ac);
 errt *parseur(cor);
-void comment(errt a);
-void free_lines(char **lines);
+
 void *my_malloc(size_t size);
 char *cut(char *str, int size);
+void affiche_struct(errt *err);
+
 int sil(char *line);
 int check_line(char *line, char *file, char **function);
 int get_number(char *temp);
 int file_comp(fd_f file, fd_f *other, char *line, int nb_files);
 char **get_stderr(char **lines, int start, int end);
-void affiche_struct(errt *err);
+errt *creat_struct_error(fd_f file, char *error, char *function);
+errt *add_to_struct(errt *base, errt *new);
+char **get_stderr(char **lines, int start, int end);
+void add_std_err(errt* err, char **std_err);
+
+
+void freeFiles(cor f, int ac);
+void free_lines(char **lines);
 void free_struct(errt *err);
-int cant_correct(char **lines, int start, int end, errt err);
 
-int (**get_tab_finder(void))(char **lines, int start, int end, errt err);
-int (**get_tab_corrector(void))(char **lines, int start, int end, errt err);
+int (**get_tab_finder(void))(errt *err);
+int (**get_tab_corrector(void))(errt *err);
 
-int find_semicolon(char **lines, int start, int end, errt err);
-void semicolon(errt a);
+int find_errors(errt *err);
+int cant_correct(errt *err);
+int find_semicolon(errt *err);
+
+void comment(errt *a);
+int semicolon(errt *a);
 
 #endif

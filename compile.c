@@ -4,7 +4,10 @@ FILE *compile(int ac, char **av)
 {
 	int tmp;
 	FILE *fd = fopen("correction.txt","w+");
-	assert(fd != NULL);
+	if (fd == NULL) {
+		perror("can't create a file !");
+		exit(EXIT_FAILURE);
+	}
 
 	tmp = fork();
 	if (tmp < 0)
@@ -16,7 +19,7 @@ FILE *compile(int ac, char **av)
 		av[0] = "gcc";
 		execvp(av[0],av);
 		perror("sa marche pas a léde");
-		exit(1);
+		exit(EXIT_FAILURE);
 	}
 	return (fd);
 }

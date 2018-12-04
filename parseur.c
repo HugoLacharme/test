@@ -11,7 +11,10 @@ char **get_lines(cor a)
 	ssize_t read;
 
 	a.fd_cor = freopen("correction.txt", "r", a.fd_cor);
-	assert(a.fd_cor != NULL);
+	if (a.fd_cor == NULL) {
+		perror("can't open my file ? wut??");
+		exit(EXIT_FAILURE);
+	}
 	for (i = 0;(read = getline(&gline, &len, a.fd_cor)) != -1; i++, re_alloc++) {
 		lines[i] = strdup(gline);
 		if (re_alloc >= 9) {
@@ -27,22 +30,22 @@ char **get_lines(cor a)
 	return (lines);
 }
 
-errt *add_to_struct(errt *err, errt *new)
+errt *add_to_struct(errt *base, errt *new)
 {
-	errt *temp = err;
-	if (err == NULL) {
-		err = new;	
+	errt *temp = base;
+	if (base == NULL) {
+		base = new;	
 	} else {
 		while (temp->next != NULL) {
 			temp = temp->next;
 		}
 		temp->next = new;
 	}
-	return (err);
+	return (base);
 
 }
 
-errt *creat_struct_error(char **lines, int start, int end, fd_f file, char *error)
+errt *creat_struct_error(fd_f file, char *error, char *function)
 {
 	errt *new = my_malloc(sizeof(*new));
 	char *temp = strdup(error);
@@ -50,30 +53,63 @@ errt *creat_struct_error(char **lines, int start, int end, fd_f file, char *erro
 	new->file = file;
 	new->ligne = get_number(temp);
 	new->cur = get_number(NULL);
+	if (function != NULL)
+		new->function = strdup(function);
+	else
+		new->function = NULL;
 	free(temp);
 	//new.fct_err = find_error(lines,start,end,new);
 	new->next = NULL;
 	return (new);
 }
 
+char **get_stderr(char **lines, int start, int end)
+{
+	int y;
+	char **std_err;
+	if ((end - start) <= 1)
+		return (NULL);
+	std_err = my_malloc(sizeof(*std_err) * (1 + end - start));
+	for (y = 0; start < end; y++, start++) {
+		std_err[y] = strdup(lines[start]);
+	}
+	std_err[y] = NULL;
+	return (std_err);
+}
+
+void add_std_err(errt* err, char **std_err)
+{
+	if (err == NULL)
+		return;
+	while (err->next != NULL)
+		err = err->next;
+	if (err != NULL)
+		err->std_err = std_err;
+}
+
 errt *split_error(char **lines, int start, int end, fd_f file)
 {
 	int start_e = start, end_e = start;
 	errt *err = NULL;
-	char *temp, *error = strdup("a"); // strcmp sa segfault cpas cool #jaipaseudautreidé
+	char *temp, *function = NULL, *error = strdup("test"); // strcmp sa segfault cpas cool #jaipaseudautreidé
 
 	for (int i = start; (lines[i] != NULL) && (i < end); i++, end_e++) {
-		if (check_line(lines[i], file.name)) {
+		if (check_line(lines[i], file.name, &function)) {
 			temp = lines[i] + strlen(file.name);
 			temp = cut(temp,sil(temp));
 			if ((strcmp(temp,error) != 0)) {
 				free(error);
 				error = strdup(temp);
-				err = add_to_struct(err,creat_struct_error(lines, start_e, end_e, file, error));
+				add_std_err(err, get_stderr(lines, start_e, end_e));
+				err = add_to_struct(err,creat_struct_error(file, error, function));
 				start_e = end_e;
 			}
 			free(temp);
 		}
+	}
+	if (strcmp(error,"test") != 0) {
+		add_std_err(err, get_stderr(lines, start_e, end_e));
+		free(function);
 	}
 	free(error);
 	return (err);

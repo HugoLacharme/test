@@ -1,8 +1,7 @@
 #Variables
 ROOT_DIR	=	$(realpath .)
 
-SRC	=	$(ROOT_DIR)/comment.c\
-		$(ROOT_DIR)/compile.c\
+SRC	=	$(ROOT_DIR)/compile.c\
 		$(ROOT_DIR)/corrector.c\
 		$(ROOT_DIR)/find_errors.c\
 		$(ROOT_DIR)/free.c\

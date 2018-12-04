@@ -13,7 +13,7 @@ void *my_malloc(size_t size)
 char *cut(char *str, int size)
 {
 	int i;
-	if (size > strlen(str))
+	if ((unsigned int)size > strlen(str))
 		return (NULL);
 	char *new = my_malloc(sizeof(*new) * (size + 1));
 

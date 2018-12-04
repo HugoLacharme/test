@@ -61,7 +61,6 @@ errt *split_error(char **lines, int start, int end, fd_f file)
 errt *get_error(char **lines, cor a)
 {
 	int i = 0, start = 0, end = 0;
-	char **lerr;
 	errt *err = NULL;
 
 	for (; (lines[end] != NULL) && (i <= a.nb_files); end++) { // pour chaque ligne dans correc.txt

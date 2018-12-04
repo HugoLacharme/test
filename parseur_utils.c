@@ -27,7 +27,7 @@ int check_line(char *line, char *file, char **function)
 	if (strlen(line) < strlen(file))
 		return (0);
 	temp = cut(line,strlen(file));
-	if (strcmp(temp,file) == 0)
+	if (strcmp(temp,file) == 0) {
 		if (sil(line + strlen(file)) > 2) {
 			free(temp);
 			return (1);
@@ -36,6 +36,8 @@ int check_line(char *line, char *file, char **function)
 				free(*function);
 			*function = find_function(line, function);
 		}
+	}
+		
 	free(temp);
 	return (0);
 }

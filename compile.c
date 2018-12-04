@@ -1,6 +1,6 @@
 #include "corrector.h"
 
-FILE *compile(int ac, char **av)
+FILE *compile(char **av)
 {
 	int tmp;
 	FILE *fd = fopen("correction.txt","w+");

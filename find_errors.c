@@ -8,7 +8,7 @@ int cant_correct(errt *err)
 	return (0);
 }
 
-int find_errors(errt *err)
+void find_errors(errt *err)
 {
 	int res;
 	int (**fc)(errt *err);

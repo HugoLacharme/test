@@ -4,11 +4,12 @@ int semicolon(errt *a)
 {
 	char* buf = ";";
 	int i = find_line(a);
-	printf("%d\n",i);
+
 	lseek(fileno(a->file.fd),i, SEEK_SET);
-	if (fwrite(buf,1,1,a->file.fd) < 0) {
+	if (fwrite(buf,1,1,a->file.fd) == 0) {
 		perror("fwrite");
 	}
+	return (0);
 }
 
 int find_semicolon(errt *err)

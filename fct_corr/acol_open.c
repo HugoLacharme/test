@@ -1,18 +1,20 @@
 #include "../corrector.h"
 
-int acol_close(errt *a)
+int acol_open(errt *a)
 {
 	char* buf = "{";
-	printf("c'est ici\n");
-	lseek(fileno(a->file.fd),a->ligne, SEEK_SET);
-	if (fwrite(buf,1,sizeof(buf),a->file.fd) < 0) {
+	int i = find_line(a);
+
+	lseek(fileno(a->file.fd),i, SEEK_SET);
+	if (fwrite(buf,1,1,a->file.fd) == 0) {
 		perror("fwrite");
 	}
+	return (0);
 }
 
-int find_acol_close(errt *err)
+int find_acol_open(errt *err)
 {
 	if (strstr(err->std_err[0], "error: expected ‘{’") != NULL)
-		return (1);
+		return (2);
 	return (0); 
 }

@@ -20,7 +20,7 @@ int main(int ac, char **av)
 		fprintf(stderr,"error syntaxe : ./corrector [files]\n");
 		return (1);
 	}
-	files.fd_cor = compile(ac,av);
+	files.fd_cor = compile(av);
 	files.files = openfiles(ac,av);
 	files.nb_files = ac-1;
 

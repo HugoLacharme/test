@@ -10,7 +10,7 @@
 #include <sys/wait.h>
 #include <string.h>
 
-#define NB_FNCTCOR 2
+#define NB_FNCTCOR 4
 
 typedef struct fd_files {
 	FILE *fd;
@@ -33,7 +33,7 @@ typedef struct error_t{
 	struct error_t *next;
 }errt;
 
-FILE *compile(int ac, char **av);
+FILE *compile(char **av);
 fd_f *openfiles(int ac, char **av);
 errt *parseur(cor);
 
@@ -59,12 +59,16 @@ void free_struct(errt *err);
 int (**get_tab_finder(void))(errt *err);
 int (**get_tab_corrector(void))(errt *err);
 
-int find_errors(errt *err);
+void find_errors(errt *err);
 int cant_correct(errt *err);
 int find_semicolon(errt *err);
+int find_acol_close(errt *err);
+int find_acol_open(errt *err);
 
 void comment(errt *a);
 int semicolon(errt *a);
+int acol_open(errt *a);
+int acol_close(errt *a);
 
 ssize_t find_line(errt* a);
 

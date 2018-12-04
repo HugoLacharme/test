@@ -3,9 +3,10 @@
 int semicolon(errt *a)
 {
 	char* buf = ";";
-	printf("c'est ici\n");
-	lseek(fileno(a->file.fd),a->ligne, SEEK_SET);
-	if (fwrite(buf,1,sizeof(buf),a->file.fd) < 0) {
+	int i = find_line(a);
+	printf("%d\n",i);
+	lseek(fileno(a->file.fd),i, SEEK_SET);
+	if (fwrite(buf,1,1,a->file.fd) < 0) {
 		perror("fwrite");
 	}
 }

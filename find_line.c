@@ -1,13 +1,17 @@
 #include "corrector.h"
-ssize_t find_line(errt* a){
-	a->file.fd = freopen(a->file.name,"w",a->file.fd);
+
+ssize_t find_line(errt* a)
+{
 	void * buf;
 	char* gline = NULL;
-	ssize_t nbchar = 0;
+	ssize_t x, nbchar = 0;
 	size_t len = 0;
-	for(int i = 0 ; i < a->ligne ; i++){
+	printf("ligne : %d, cur : %d\n",a->ligne, a->cur);
+	a->file.fd = freopen(a->file.name,"r",a->file.fd);
+	for(int i = 1 ; i < a->ligne; i++) {
 		nbchar = nbchar + getline(&gline, &len, a->file.fd);
 	}
-	ssize_t x = nbchar + a->cur;
-	return (x);	
+	x = nbchar + a->cur;
+	a->file.fd = freopen(a->file.name,"r+",a->file.fd);
+	return (x - 2);	
 }

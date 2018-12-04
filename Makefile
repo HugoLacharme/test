@@ -1,7 +1,6 @@
 #Variables
-CC=gcc
-CCFLAG=-Wall
-EXEC=Correcteur
+ROOT_DIR	=	$(realpath .)
+
 SRC	=	$(ROOT_DIR)/comment.c\
 		$(ROOT_DIR)/compile.c\
 		$(ROOT_DIR)/corrector.c\
@@ -11,22 +10,23 @@ SRC	=	$(ROOT_DIR)/comment.c\
 		$(ROOT_DIR)/parseur_util.c\
 		$(ROOT_DIR)/parseur.c\
 		$(ROOT_DIR)/utils.c\
-		$(ROOT_DIR)/fct_corr/$(wildcard *.c)\
-OBJ= $(SRC:.c=.o)
+		$(ROOT_DIR)/fct_corr/point_virg.c\
+		$(ROOT_DIR)/get_tab.c\
+		$(ROOT_DIR)/find_line.c\
+		$(ROOT_DIR)/struct_errt.c\
 
-All: $(EXEC)
+CC	=	gcc
 
-#Génération d'executables
-Correcteur: $(OBJ)
-	@$(CC) -o $@ $^ $(CCFLAG) 
-	@echo $@ "generated"
+#NAME	=	correcteur
 
-corrector.o: corrector.h
+OBJ	=	$(SRC:.c=.o)
 
-#Génération des .o
-%.o: %.c 
-	@$(CC) -o $@ -c $< $(CCFLAG) 
-	@echo $@ "generated"
+CFLAGS	+=	-std=c99 -fpic -wall -Wextra
+
+all:	$(NAME)
+
+$(NAME):	$(OBJ)
+	$(CC) $(OBJ) #-o $(NAME) $(CFLAGS)
 
 #Clean and Cleanall
 .PHONY: clean cleanall
@@ -35,6 +35,8 @@ clean:
 	@rm -rf *.o
 	@echo ".o supprimer"
 
-cleanall: clean
-	@rm -rf $(EXEC)
+fclean: clean
+	@rm -rf $(NAME)
 	@echo "exec supprimer"
+
+re:	fclean all

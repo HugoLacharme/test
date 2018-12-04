@@ -66,4 +66,6 @@ int find_semicolon(errt *err);
 void comment(errt *a);
 int semicolon(errt *a);
 
+ssize_t find_line(errt* a);
+
 #endif
